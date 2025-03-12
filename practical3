@@ -1,0 +1,10 @@
+nameofAnimals = ["cat", "dogs", "cow","monkey"]
+lengthofarray = len(nameofAnimals)
+
+index = 0
+
+while index < lengthofarray:
+      print(nameofAnimals[index])
+      index = index + 1
+
+

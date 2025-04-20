@@ -1,0 +1,11 @@
+my_list = ["cat","cow","monkey"]
+my_list.append("donkey")
+print( my_list)
+my_list.insert(2,"flower")
+print(my_list)
+my_list.reverse()
+print(my_list)
+my_list.sort()
+print(my_list)
+my_list.remove("cow")
+print(my_list)

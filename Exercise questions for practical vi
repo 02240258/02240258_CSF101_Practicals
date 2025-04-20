@@ -1,0 +1,84 @@
+import random
+
+# In-place Quick Sort
+def quick_sort_inplace(arr, low=0, high=None):
+    if high is None:
+        high = len(arr) - 1
+    if low < high:
+        p = partition(arr, low, high)
+        quick_sort_inplace(arr, low, p - 1)
+        quick_sort_inplace(arr, p + 1, high)
+
+def partition(arr, low, high):
+    pivot = arr[high]
+    i = low
+    for j in range(low, high):
+        if arr[j] <= pivot:
+            arr[i], arr[j] = arr[j], arr[i]
+            i += 1
+    arr[i], arr[high] = arr[high], arr[i]
+    return i
+
+# Optimized Bubble Sort
+def bubble_sort_optimized(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(n - i - 1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+
+# Insertion Sort used in Hybrid Sort
+def insertion_sort(arr, left=0, right=None):
+    if right is None:
+        right = len(arr)
+    for i in range(left + 1, right):
+        key = arr[i]
+        j = i - 1
+        while j >= left and arr[j] > key:
+            arr[j+1] = arr[j]
+            j -= 1
+        arr[j+1] = key
+
+# Hybrid Merge Sort
+def hybrid_merge_sort(arr, threshold=10):
+    if len(arr) <= threshold:
+        insertion_sort(arr)
+    else:
+        mid = len(arr) // 2
+        left = arr[:mid]
+        right = arr[mid:]
+        hybrid_merge_sort(left, threshold)
+        hybrid_merge_sort(right, threshold)
+        merge(arr, left, right)
+
+def merge(arr, left, right):
+    i = j = k = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            arr[k] = left[i]
+            i += 1
+        else:
+            arr[k] = right[j]
+            j += 1
+        k += 1
+    arr[k:] = left[i:] + right[j:]
+
+# Test run
+original = [random.randint(1, 100) for _ in range(30)]
+
+arr_quick = original.copy()
+arr_bubble = original.copy()
+arr_hybrid = original.copy()
+
+quick_sort_inplace(arr_quick)
+bubble_sort_optimized(arr_bubble)
+hybrid_merge_sort(arr_hybrid)
+
+print("Original:", original)
+print("Quick Sort:", arr_quick)
+print("Bubble Sort:", arr_bubble)
+print("Hybrid Merge Sort:", arr_hybrid)
